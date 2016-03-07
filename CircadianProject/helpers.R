@@ -144,270 +144,86 @@ groupByPeriodAgg <- function(dt, minperiod, maxperiod, minnumberofOscillators,
 #' @return data.table 2 columns
 
 groupBynumberofOscillatorsAvg <- function(dt,  minperiod, maxperiod, minnumberofOscillators,
-
                             maxnumberofOscillators, mincouplingStrength,
- 
-153
                             maxcouplingStrength, couplingTypes) {
- 
-154
   dt <- groupByPeriodAll(dt, minperiod, maxperiod, minnumberofOscillators,
- 
-155
                        maxnumberofOscillators, mincouplingStrength,
- 
-156
                        maxcouplingStrength, couplingTypes)
- 
-157
   result <- dt %>% 
- 
-158
     group_by(period) %>% 
- 
-159
-    summarise(avg = mean(numberofOscillators)) %>%
- 
-160
     arrange(period)
- 
-161
   return(result)      
- 
-162
 }
- 
-163
- 
-164
 #' Average numberofOscillators for each couplingType
- 
-165
-#' 
- 
-166
 #' @param dt data.table
- 
-167
 #' @param minperiod
- 
-168
 #' @param maxperiod
- 
-169
 #' @param minnumberofOscillators
- 
-170
 #' @param maxnumberofOscillators
- 
-171
 #' @param couplingTypes
- 
-172
 #' @return data.table 2 columns
- 
-173
-#'
- 
-174
 groupBynumberofOscillatorscouplingTypeAvg <- function(dt,  minperiod, maxperiod, minnumberofOscillators,
- 
-175
                                  maxnumberofOscillators, mincouplingStrength,
- 
-176
                                  maxcouplingStrength, couplingTypes) {
- 
-177
   dt <- groupByPeriodAll(dt, minperiod, maxperiod, minnumberofOscillators,
- 
-178
                        maxnumberofOscillators, mincouplingStrength,
- 
-179
                        maxcouplingStrength, couplingTypes)
- 
-180
   result <- dt %>% 
- 
-181
     group_by(couplingType) %>%
- 
-182
     summarise(avgnumberofOscillators = mean(numberofOscillators)) %>%
- 
-183
     arrange(couplingType)
- 
-184
   return(result)
- 
-185
 }
- 
-186
- 
-187
 #' Plot couplingStrength by period
- 
-188
-#' 
- 
-189
 #' @param dt data.table
- 
-190
 #' @param dom
- 
-191
 #' @param xAxisLabel period
- 
-192
 #' @param yAxisLabel number of sets
- 
-193
 #' @return couplingStrengthByperiod plot
- 
-194
 plotcouplingStrengthCountByperiod <- function(dt, dom = "couplingStrengthByPeriod", 
- 
-195
                                 xAxisLabel = "Period",
- 
-196
                                 yAxisLabel = "Coupling Strength") {
- 
-197
   couplingStrengthByPeriod <- nPlot(
- 
-198
     total_couplingStrengths~period,
- 
-199
     data = dt,
- 
-200
     type = "stackedAreaChart",
- 
-201
     dom = dom, width = 650
- 
-202
   )
- 
-203
   couplingStrengthByPeriod$chart(margin = list(left = 100))
- 
-204
   couplingStrengthByPeriod$chart(color = c('purple', 'blue', 'green'))
- 
-205
   couplingStrengthByPeriod$chart(tooltipContent = "#! function(key, x, y, e){ 
- 
-206
                    return '<h5><b>period</b>: ' + e.point.period + '<br>' + '<b>Total Coupling trength</b>: ' 
- 
-207
                    + e.point.total_couplingStrengths + '<br>'
- 
-208
                    + '</h5>'
- 
-209
 } !#")
- 
-210
   couplingStrengthByPeriod$yAxis(axisLabel = yAxisLabel, width = 80)
- 
-211
   couplingStrengthByPeriod$xAxis(axisLabel = xAxisLabel, width = 70)
- 
-212
   couplingStrengthByPeriod 
- 
-213
   }
- 
-214
- 
-215
 #' Plot number of couplingTypes by period
- 
-216
-#' 
- 
-217
 #' @param dt data.table
- 
-218
 #' @param dom
- 
-219
 #' @param xAxisLabel period
- 
-220
 #' @param yAxisLabel number of couplingTypes
- 
-221
 #' @return couplingTypesByperiod plot
- 
-222
 plotcouplingTypesCountByPeriod <- function(dt, dom = "couplingTypesByPeriod", 
- 
-223
                                   xAxisLabel = "period",
- 
-224
                                   yAxisLabel = "Number of couplingTypes") {
- 
-225
   couplingTypesByPeriod <- nPlot(
- 
-226
     count ~ period,
- 
-227
     data = dt,
- 
-228
     type = "multiBarChart",
- 
-229
     dom = dom, width = 650
- 
-230
   )
- 
-231
   couplingTypesByPeriod$chart(margin = list(left = 100))
- 
-232
   couplingTypesByPeriod$yAxis(axisLabel = yAxisLabel, width = 80)
- 
-233
   couplingTypesByPeriod$xAxis(axisLabel = xAxisLabel, width = 70)
- 
-234
 #   couplingTypesByPeriod$chart(tooltipContent = "#! function(key, x, y, e){ 
- 
-235
 #                      return '<h5><b>period</b>: ' + e.point.period + '<br>' + '<b>Total couplingTypes</b>: ' + e.point.count + '<br>'
- 
-236
 #                      + '</h5>'
- 
-237
 # } !#")
- 
-238
   couplingTypesByPeriod
- 
-239
   }
- 
-240
- 
-241
 #' Plot number of Oscillators by period
  
 242
