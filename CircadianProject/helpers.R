@@ -466,178 +466,58 @@ plotnumberofOscillatorsByPeriod <- function(dt, dom = "numberofOscillatorsByPeri
  
 260
   numberofOscillatorsByPeriod$chart(color = c('green', 'orange', 'blue'))
- 
-261
   numberofOscillatorsByPeriod$chart(tooltipContent = "#! function(key, x, y, e){ 
- 
-262
                      return '<h5><b>Set Name</b>: ' + e.point.name + '<br>'
- 
-263
                      + '<b>Set ID</b>: ' + e.point.setId + '<br>'
- 
-264
                      + '<b>couplingType</b>: ' + e.point.couplingType
- 
-265
                      + '</h5>'
- 
-266
 } !#")
- 
-267
   numberofOscillatorsByPeriod$yAxis(axisLabel = yAxisLabel, width = 80)
- 
-268
   numberofOscillatorsByPeriod$xAxis(axisLabel = xAxisLabel, width = 70)
- 
-269
   #     numberofOscillatorsByperiod$chart(useInteractiveGuideline = TRUE)
- 
-270
   numberofOscillatorsByPeriod
- 
-271
   }
- 
-272
- 
-273
 #' Plot average number of Oscillators by period
- 
-274
-#' 
- 
-275
 #' @param dt data.table
- 
-276
 #' @param dom
- 
-277
 #' @param xAxisLabel period
- 
-278
 #' @param yAxisLabel number of numberofOscillators
- 
-279
 #' @return couplingTypesByperiod plot
- 
-280
 plotnumberofOscillatorsByPeriodAvg <- function(dt, dom = "numberofOscillatorsByPeriodAvg", 
- 
-281
                                 xAxisLabel = "period",
- 
-282
                                 yAxisLabel = "Number of Oscillators") {
- 
-283
-  
- 
-284
   numberofOscillatorsByPeriodAvg <- nPlot(
- 
-285
     avg ~ period,
- 
-286
     data = dt,
- 
-287
     type = "lineChart",
- 
-288
     dom = dom, width = 650
- 
-289
   )
- 
-290
   numberofOscillatorsByPeriodAvg$chart(margin = list(left = 100))
- 
-291
   numberofOscillatorsByPeriodAvg$chart(color = c('orange', 'blue', 'green'))
- 
-292
   numberofOscillatorsByPeriodAvg$yAxis(axisLabel = yAxisLabel, width = 80)
- 
-293
   numberofOscillatorsByPeriodAvg$xAxis(axisLabel = xAxisLabel, width = 70)
- 
-294
   numberofOscillatorsByPeriodAvg
- 
-295
 }
- 
-296
- 
-297
 #' Plot average number of Oscillators by couplingType
- 
-298
-#' 
- 
-299
 #' @param dt data.table
- 
-300
 #' @param dom
- 
-301
 #' @param xAxisLabel couplingType
- 
-302
 #' @param yAxisLabel number of numberofOscillators
- 
-303
 #' @return numberofOscillatorsBycouplingTypeAvg plot
- 
-304
 plotnumberofOscillatorsBycouplingTypeAvg <- function(dt, dom = "numberofOscillatorsBycouplingTypeAvg", 
- 
-305
                                  xAxisLabel = "couplingTypes", 
- 
-306
                                  yAxisLabel = "Number of Oscillators") {
- 
-307
   numberofOscillatorsBycouplingTypeAvg <- nPlot(
- 
-308
     avgnumberofOscillators ~ couplingType,
- 
-309
     data = dt,
- 
-310
     type = "multiBarChart",
- 
-311
     dom = dom, width = 650
- 
-312
   )
- 
-313
   numberofOscillatorsBycouplingTypeAvg$chart(margin = list(left = 100))
- 
-314
   numberofOscillatorsBycouplingTypeAvg$chart(color = c('pink', 'blue', 'green'))
- 
-315
   numberofOscillatorsBycouplingTypeAvg$yAxis(axisLabel = yAxisLabel, width = 80)
- 
-316
   numberofOscillatorsBycouplingTypeAvg$xAxis(axisLabel = xAxisLabel, width = 200,
- 
-317
                          rotateLabels = -20, height = 200)
- 
-318
   numberofOscillatorsBycouplingTypeAvg
- 
-319
+
 }
