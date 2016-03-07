@@ -11,7 +11,9 @@ output: html_document
 
 Circadian Rhythms
 
-This Shiny App is plot Circadian modeling information for per/Cry mrNA concentraion over periods ranging from 24-72 hrs for different coupling type. The total number of set records is 1998 and that of coupling type records is 80. The dataset is experimental data obtained from public records.
+This Shiny App is plot Circadian modeling information for per/Cry mrNA concentraion over periods ranging from 24-72 hrs for different coupling type. The total number of set records is 1998 and that of coupling type records is 80. The dataset is experimental data obtained from public records. The project is on Shiny User Showcase page 
+
+https://snigdhak40.shinyapps.io/CircadianRhythms/
 
 The Data Source is a CSV file on my hard drive
 03/05/2016
