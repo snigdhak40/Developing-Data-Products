@@ -225,62 +225,23 @@ plotcouplingTypesCountByPeriod <- function(dt, dom = "couplingTypesByPeriod",
   couplingTypesByPeriod
   }
 #' Plot number of Oscillators by period
- 
-242
-#' 
- 
-243
 #' @param dt data.table
- 
-244
 #' @param dom
- 
-245
 #' @param xAxisLabel period
- 
-246
 #' @param yAxisLabel number of numberofOscillators
- 
-247
 #' @return plotnumberofOscillatorsByperiod plot
- 
-248
 plotnumberofOscillatorsByPeriod <- function(dt, dom = "numberofOscillatorsByPeriod", 
- 
-249
                              xAxisLabel = "period", 
- 
-250
                              yAxisLabel = "Number of Oscillators") {
- 
-251
   numberofOscillatorsByPeriod <- nPlot(
- 
-252
     numberofOscillators ~ period,
- 
-253
     data = dt,
- 
-254
     type = "scatterChart",
- 
-255
     dom = dom, width = 650
- 
-256
   )
- 
-257
   numberofOscillatorsByPeriod$chart(margin = list(left = 100), 
- 
-258
                      showDistX = TRUE,
- 
-259
                      showDistY = TRUE)
- 
-260
   numberofOscillatorsByPeriod$chart(color = c('green', 'orange', 'blue'))
   numberofOscillatorsByPeriod$chart(tooltipContent = "#! function(key, x, y, e){ 
                      return '<h5><b>Set Name</b>: ' + e.point.name + '<br>'
