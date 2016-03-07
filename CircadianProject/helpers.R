@@ -15,7 +15,6 @@ library(rCharts)
 # Read data from csv file and change column names
 
 circData = fread("./data/Book1.csv")
-
 head(circData)
 setnames(circData,"cs","couplingStrength")
 setnames(circData,"c1","couplingType")
@@ -68,249 +67,84 @@ groupByperiod <- function(dt, minperiod, maxperiod) {
   result <- dt %>% filter( dt$period >= minperiod, dt$period <= maxperiod) 
   return(result)
 }
- 
-70
- 
-71
 #' couplingStrength Aggregate
- 
-72
-#' 
- 
-73
 #' @param dt data.table
- 
-74
 #' @param minperiod
- 
-75
 #' @param maxperiod
- 
-76
 #' @param minnumberofOscillators
- 
-77
 #' @param maxnumberofOscillators
- 
-78
 #' @param mincouplingStrength
- 
-79
 #' @param maxcouplingStrength
- 
-80
 #' @param couplingTypes
- 
-81
 #' @return result data.table
- 
-82
-#' 
- 
-83
 groupByperiodcouplingStrength <- function(dt, minperiod, maxperiod, mincouplingStrength,
- 
-84
                                           maxcouplingStrength, minnumberofOscillators,
- 
-85
                                           maxnumberofOscillators, couplingTypes) {
- 
-86
   dt <- groupByperiod(dt, minperiod, maxperiod)
- 
-87
   result <- dt %>% 
- 
-88
     group_by(period) %>% 
- 
-89
     summarise(total_couplingStrengths = n_distinct(couplingStrength)) %>%
- 
-90
     arrange(period)
- 
-91
   return(result) 
- 
-92
 }
- 
-93
- 
-94
 #' couplingTypes Aggregate
- 
-95
-#' 
- 
-96
 #' @param dt data.table
- 
-97
 #' @param minperiod
- 
-98
 #' @param maxperiod
- 
-99
 #' @param minnumberofOscillators
- 
-100
 #' @param maxnumberofOscillators
- 
-101
 #' @param mincouplingStrength
- 
-102
 #' @param maxcouplingStrength
- 
-103
 #' @param couplingTypes
- 
-104
 #' @return result data.table
- 
-105
-#' 
- 
-106
 groupBycouplingType <- function(dt, minperiod, maxperiod, 
- 
-107
                          minnumberofOscillators, maxnumberofOscillators, mincouplingStrength,
- 
-108
                          maxcouplingStrength, couplingTypes) {
- 
-109
- 
-110
   dt <- groupByPeriodAll(dt, minperiod, maxperiod, minnumberofOscillators,
- 
-111
                        maxnumberofOscillators,  mincouplingStrength,
- 
-112
                        maxcouplingStrength, couplingTypes) 
- 
-113
   result <- datatable(dt, options = list(iDisplayLength = 100))
- 
-114
   return(result)
- 
-115
 }
- 
-116
- 
-117
+
 #' Total count of couplingTypes by Period Aggregate
- 
-118
-#' 
- 
-119
 #' @param dt data.table
- 
-120
 #' @param minperiod
- 
-121
 #' @param maxperiod
- 
-122
 #' @param minnumberofOscillators
- 
-123
 #' @param maxnumberofOscillators
- 
-124
 #' @param mincouplingStrength
- 
-125
 #' @param maxcouplingStrength
- 
-126
 #' @param couplingTypes
- 
-127
 #' @return data.table 2 columns
- 
-128
-#'
- 
-129
 groupByPeriodAgg <- function(dt, minperiod, maxperiod, minnumberofOscillators,
- 
-130
                            maxnumberofOscillators, mincouplingStrength,
- 
-131
                            maxcouplingStrength, couplingTypes) {
- 
-132
   # only need the minperiod and maxperiod here
- 
-133
   dt <- groupByperiod(dt, minperiod, maxperiod)
- 
-134
   result <- dt %>% 
- 
-135
     group_by(period)  %>% 
- 
-136
     summarise(count = n_distinct(dt$couplingType)) %>%
- 
-137
     arrange(period)
- 
-138
   return(result)
- 
-139
 }
- 
-140
- 
-141
 #' Count of average number of Oscillators by Period 
- 
-142
-#' 
- 
-143
 #' @param dt data.table
- 
-144
+
 #' @param minperiod
- 
-145
+
 #' @param maxperiod
- 
-146
+
 #' @param minnumberofOscillators
- 
-147
+
 #' @param maxnumberofOscillators
- 
-148
 #' @param couplingTypes
  
 149
 #' @return data.table 2 columns
- 
-150
-#'
- 
-151
+
 groupBynumberofOscillatorsAvg <- function(dt,  minperiod, maxperiod, minnumberofOscillators,
- 
-152
+
                             maxnumberofOscillators, mincouplingStrength,
  
 153
